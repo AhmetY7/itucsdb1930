@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}update team{% endblock %}
+{% block content %}
+<a class="button is-dark" href="{{ url_for('team_page') }}">See All Teams</a>
+<a class="button is-dark" href="{{ url_for('player_page') }}">See All Players</a>
+<a class="button is-dark" href="{{ url_for('manager_page') }}">See All Managers</a>
+<a class="button is-dark" href="{{ url_for('goal_page') }}">See All Goals</a>
+<a class="button is-dark" href="{{ url_for('stadium_page') }}">See All Stadiums</a>
+<a class="button is-dark" href="{{ url_for('assist_page') }}">See All Assists</a>
+<a class="button is-dark" href="{{ url_for('statistic_page') }}">See All Statistics</a>
+<a class="button is-dark" href="{{ url_for('standing_page') }}">See Standing</a>
+<a class="button is-dark" href="{{ url_for('referee_page') }}">See Referee</a>
+<a class="button is-dark" href="{{ url_for('fixture_page') }}">See Fixture</a>
+<a class="button is-dark" href="{{ url_for('detail_page') }}">See Details</a>
+<br><br>
+<h1 class="title">Update Team</h1>
+
+<form method='POST'>
+<div class="field">
+  <label class="label">Add Team Name</label>
+  <div class="control">
+      {% for row in cursor[0] %}
+    <input required="required" class="input" type="text" placeholder="e.g. Manchester City"  value="{{row[1]}}" name="Teamname" maxlength="30">
+  </div>
+</div>
+
+<div class="field">
+  <label class="label">Add NickName</label>
+  <div class="control">
+    <input required="required" class="input" type="text" placeholder="e.g. City Girls"  value="{{row[2]}}" name="NickName" maxlength="30">
+  </div>
+</div>
+<div class="field">
+  <label class="label">Add ShortName</label>
+  <div class="control">
+    <input required="required" class="input" type="text" placeholder="e.g. MC"  value="{{row[3]}}" name="ShortName" maxlength="30">
+  </div>
+</div>
+
+<div class="field">
+  <label class="label">Add FoundationDate</label>
+  <div class="control">
+    <input required="required" class="input" type="text" placeholder="e.g. 1923"  value="{{row[4]}}" name="FoundationDate" maxlength="30">
+  </div>
+</div>
+
+<div class="field">
+  <label class="label">Add Location</label>
+  <div class="control">
+    <input required="required" class="input" type="text" placeholder="e.g. Sivas"  value="{{row[6]}}" name="Location" maxlength="50">
+  </div>
+</div>
+
+<div class="field">
+    <label for="Name" class="label">Manager Name</label>
+    <div class="select">
+        <select  value="{{ManagerID}}" name="ManagerID">
+            {% for Manager in cursor[1] %}
+            {% if Manager[0] == cursor[0][0][5]: %}
+            <option value="{{Manager[0]}}" selected>{{Manager[1]}}</option>
+            {% else: %}
+            <option value="{{Manager[0]}}">{{Manager[1]}}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+      </div>
+</div>
+
+<div class="field is-grouped">
+    <div class="control">
+      <button class="button is-link" name="Update" value="{{row[0]}}">Submit</button>
+    </div>
+  </div>
+{% endfor %}
+</form>
+{% endblock %}

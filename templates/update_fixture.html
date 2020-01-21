@@ -1,0 +1,142 @@
+{% extends "layout.html" %}
+
+{% block title %}update fixture {% endblock %}
+{% block content %}
+<a class="button is-dark" href="{{ url_for('team_page') }}">See All Teams</a>
+<a class="button is-dark" href="{{ url_for('player_page') }}">See All Players</a>
+<a class="button is-dark" href="{{ url_for('manager_page') }}">See All Managers</a>
+<a class="button is-dark" href="{{ url_for('goal_page') }}">See All Goals</a>
+<a class="button is-dark" href="{{ url_for('stadium_page') }}">See All Stadiums</a>
+<a class="button is-dark" href="{{ url_for('assist_page') }}">See All Assists</a>
+<a class="button is-dark" href="{{ url_for('statistic_page') }}">See All Statistics</a>
+<a class="button is-dark" href="{{ url_for('standing_page') }}">See Standing</a>
+<a class="button is-dark" href="{{ url_for('referee_page') }}">See Referee</a>
+<a class="button is-dark" href="{{ url_for('fixture_page') }}">See Fixture</a>
+<a class="button is-dark" href="{{ url_for('detail_page') }}">See Details</a>
+<br><br>
+<h1 class="title">UPDATE Fixture</h1>
+
+
+<form method='POST'>
+<div class="field">
+  <label for="PlayerName" class="label">HomeTeam</label>
+  <div class="select">
+    
+    <select  id="home" name="HomeTeam" >
+      {% for row1 in cursor[1] %}
+          <option value="{{row1[0]}}">{{row1[1]}}</option>
+        {% endfor %}
+      </select>
+
+  </div>
+</div>
+<div class="field">
+  <label for="PlayerName" class="label">AwayTeam</label>
+<div class="select">
+  <select  id="away" name="AwayTeam" >
+          {% for row1 in cursor[1] %}
+          <option value="{{row1[0]}}">{{row1[1]}}</option>
+        {% endfor %}
+      </select>
+  </div>
+</div>
+<div class="field">
+  <label for="PlayerAge" class="label">Referee</label>
+  <div class="select">
+        <select id="referee"  name="Refereeid">
+          {% for row2 in cursor[2] %}
+          <option value="{{row2[0]}}">{{row2[1]}}</option>
+        {% endfor %}
+      </select>
+  </div>
+</div>
+{% for row0 in cursor[0] %}
+<div class="field">
+  <label for="TeamID" class="label">HomeScore</label>
+  <div class="control">
+    <input  class="input" type="number" placeholder="e.g. 3"  value="{{row0[6]}}" name="HomeScore" min="0">
+  </div>
+</div>
+
+<div class="field">
+  <label for="TeamID" class="label">AwayScore</label>
+  <div class="control">
+    <input  class="input" type="number" placeholder="e.g. 0"  value="{{row0[7]}}" name="AwayScore" min="0">
+  </div>
+</div>
+
+<div class="field">
+  <label for="TeamID" class="label">Week</label>
+  <div class="control">
+    <input required="required" class="input" type="number" placeholder="e.g. 1"  value="{{row0[3]}}" name="Week" min="1">
+  </div>
+</div>
+
+<div class="field">
+    <label for="TeamID" class="label">MatchDate</label>
+    <div class="control">
+      <input required="required" class="input" type="date" placeholder="e.g. 01.01.2020"  value="{{row0[4]}}" name="MatchDate">
+    </div>
+</div>
+
+<div class="field">
+  <label for="TeamID" class="label">Time</label>
+  <div class="control">
+    <input required="required" class="input" type="time" placeholder="e.g. 20:00"  value="{{row0[5]}}" name="Time">
+  </div>
+</div>
+<label class="radiobox" id="radio">
+  <input type="radio" name="Status" value="NOTSTARTED" id="1" >
+  Not Started <br>
+  <input type="radio" name="Status" value="LIVE" id="2">
+  LIVE<br>
+  <input type="radio" name="Status" value="FINISHED" id="3">
+  FINISHED
+</label>
+<div class="field is-grouped">
+  <div class="control">
+    <button class="button is-link" name="Update" value="{{row0[0]}}">Submit</button>
+  </div>
+</div>
+</form>
+<script>
+ listBox=document.getElementById('home');
+ 
+ for (var x = 0; x < 20; x++) { 
+  if (listBox.options[x].value == {{row0[1]}}) { 
+    listBox.options[x].selected = true; 
+  } 
+} 
+listBox2=document.getElementById('away');
+ 
+ for (var x = 0; x < 20; x++) { 
+  if (listBox2.options[x].value == {{row0[2]}}) { 
+    listBox2.options[x].selected = true; 
+  } 
+} 
+listBox3=document.getElementById('referee');
+ 
+ for (var x = 0; x < 18; x++) { 
+  if (listBox3.options[x].value == {{row0[9]}}) { 
+    listBox3.options[x].selected = true; 
+  } 
+} 
+listBox4=document.getElementById('1');
+  if (listBox4.value == "{{row0[8]}}") { 
+    listBox4.checked = true; 
+  } 
+listBox5=document.getElementById('2');
+ 
+  if (listBox5.value == "{{row0[8]}}") { 
+    listBox5.checked = true; 
+  } 
+listBox6=document.getElementById('3');
+ 
+  if (listBox6.value == "{{row0[8]}}") { 
+    listBox6.checked = true; 
+  } 
+
+
+</script>
+{% endfor %}
+{% endblock %}

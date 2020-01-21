@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}Add Stadium {% endblock %}
+{% block content %}
+<a class="button is-dark" href="{{ url_for('team_page') }}">See All Teams</a>
+<a class="button is-dark" href="{{ url_for('player_page') }}">See All Players</a>
+<a class="button is-dark" href="{{ url_for('manager_page') }}">See All Managers</a>
+<a class="button is-dark" href="{{ url_for('goal_page') }}">See All Goals</a>
+<a class="button is-dark" href="{{ url_for('stadium_page') }}">See All Stadiums</a>
+<a class="button is-dark" href="{{ url_for('assist_page') }}">See All Assists</a>
+<a class="button is-dark" href="{{ url_for('statistic_page') }}">See All Statistics</a>
+<a class="button is-dark" href="{{ url_for('standing_page') }}">See Standing</a>
+<a class="button is-dark" href="{{ url_for('referee_page') }}">See Referee</a>
+<a class="button is-dark" href="{{ url_for('fixture_page') }}">See Fixture</a>
+<a class="button is-dark" href="{{ url_for('detail_page') }}">See Details</a>
+<br><br>
+<h1 class="title">ADD STADIUM</h1>
+
+
+<form method='POST'>
+<div class="field">
+    <label for="Teamname" class="label">Select Team</label>
+    <div class="select">
+    <select  value="{{Team_ID}}" name="Team_ID">
+        {% for row in cursor %}
+      <option value="{{row[0]}}">{{row[1]}}</option>
+        {% endfor %}
+    </select>
+  </div>
+  </div>
+<div class="field">
+  <label for="PlayerAge" class="label">Stadium Name</label>
+  <div class="control">
+    <input required="required" class="input" type="text" placeholder="e.g. Ali Samiyen"  value="{{Stadiumname}}" name="Stadiumname"maxlength="30">
+  </div>
+</div>
+
+<div class="field">
+  <label for="PlayerAge" class="label">Capacity</label>
+  <div class="control">
+    <input required="required" class="input" type="number" placeholder="52.00"  value="{{Capacity}}" name="Capacity">
+  </div>
+</div>
+
+<div class="field">
+  <label for="PlayerAge" class="label">Built</label>
+  <div class="control">
+    <input required="required" class="input" type="number" placeholder="1995"  value="{{Built}}" name="Built">
+  </div>
+</div>
+
+<div class="field">
+  <label for="PlayerAge" class="label">Pitch Size</label>
+  <div class="control">
+    <input required="required" class="input" type="text" placeholder="120x150m"  value="{{PitchSize}}" name="PitchSize"maxlength="10">
+  </div>
+</div>
+
+<div class="field">
+  <label for="PlayerAge" class="label">Surface</label>
+  <div class="control">
+    <input required="required" class="input" type="text" placeholder="Grass/Hybrid"  value="{{Surface}}" name="Surface"maxlength="10">
+  </div>
+</div>
+
+<div class="field is-grouped">
+  <div class="control">
+    <button class="button is-link">Submit</button>
+  </div>
+</div>
+</form>
+{% endblock %}

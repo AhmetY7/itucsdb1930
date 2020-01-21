@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+
+{% block title %}update player{% endblock %}
+{% block content %}
+<a class="button is-dark" href="{{ url_for('team_page') }}">See All Teams</a>
+<a class="button is-dark" href="{{ url_for('player_page') }}">See All Players</a>
+<a class="button is-dark" href="{{ url_for('manager_page') }}">See All Managers</a>
+<a class="button is-dark" href="{{ url_for('goal_page') }}">See All Goals</a>
+<a class="button is-dark" href="{{ url_for('stadium_page') }}">See All Stadiums</a>
+<a class="button is-dark" href="{{ url_for('assist_page') }}">See All Assists</a>
+<a class="button is-dark" href="{{ url_for('statistic_page') }}">See All Statistics</a>
+<a class="button is-dark" href="{{ url_for('standing_page') }}">See Standing</a>
+<a class="button is-dark" href="{{ url_for('referee_page') }}">See Referee</a>
+<a class="button is-dark" href="{{ url_for('fixture_page') }}">See Fixture</a>
+<a class="button is-dark" href="{{ url_for('detail_page') }}">See Details</a>
+<br><br>
+<h1 class="title">Update Player</h1>
+<button class="button is-primary is-small" onclick="document.getElementById('Age').innerHTML = getRndInteger(15,55)">Get Random Age</button>
+<p id="Age"></p> 
+<button class="button is-danger is-small " onclick="document.getElementById('Height').innerHTML = getRndInteger(125,225)">Get Random Height</button>
+<p id="Height"></p>
+
+<form method='POST'>
+<div class="field">
+  <label for="PlayerName" class="label">Player Name</label>
+  <div class="control">
+      {% for row in cursor[0] %}
+    <input required="required" class="input" type="text" placeholder="e.g. Umut Bulut"  value="{{row[1]}}" name="PlayerName" maxlength="30">
+  </div>
+</div>
+
+<div class="field">
+  <label for="PlayerAge" class="label">Player Age</label>
+  <div class="control">
+    <input required="required" class="input" type="number" placeholder="e.g. 66"  value="{{row[2]}}" name="PlayerAge" min="15" max="55">
+  </div>
+</div>
+
+  <div class="field">
+    <label for="Position" class="label">Player Position</label>
+  <label class="radiobox">
+      {% if row[7] == 'Goalkeeper' %}
+      <input type="radio" name="Position" value="Goalkeeper" checked>Goalkeeper<br>
+      {% else %}
+      <input type="radio" name="Position" value="Goalkeeper">Goalkeeper<br>
+      {% endif %}
+      {% if row[7] == 'Defender' %}
+      <input type="radio" name="Position" value="Defender" checked>Defender<br>
+      {% else %}
+      <input type="radio" name="Position" value="Defender">Defender<br>
+      {% endif %}
+      {% if row[7] == 'Midfielder' %}
+      <input type="radio" name="Position" value="Midfielder" checked>Midfielder<br>
+      {% else %}
+      <input type="radio" name="Position" value="Midfielder">Midfielder<br>
+      {% endif %}
+      {% if row[7] == 'Forward' %}
+      <input type="radio" name="Position" value="Forward" checked>Forward<br>
+      {% else %}
+      <input type="radio" name="Position" value="Forward">Forward<br>
+      {% endif %}
+  </label>
+  </div> 
+
+<div class="field">
+  <label for="PlayerNationalty" class="label">Player Nationalty</label>
+  <div class="control">
+    <input required="required" class="input" type="text" placeholder="e.g. Turkey"  value="{{row[3]}}" name="PlayerNationalty" maxlength="30">
+  </div>
+</div>
+
+<div class="field">
+  <label for="PlayerHeight" class="label">Player Height</label>
+  <div class="control">
+    <input required="required" class="input" type="number" placeholder="e.g. 192"  value="{{row[4]}}" name="PlayerHeight" min="125" max="225">
+  </div>
+</div>
+
+<div class="field">
+  <label for="PlayerHeight" class="label">Player PlaceOfBirth</label>
+  <div class="control">
+    <input required="required" class="input" type="text" placeholder="e.g. Sivas"  value="{{row[6]}}" name="PlaceOfBirth" maxlength="30">
+  </div>
+</div>
+
+<div class="field">
+    <label for="Teamname" class="label">Select Team</label>
+    <div class="select">
+        <select  value="{{TeamID}}" name="TeamID">
+            {% for Teams in cursor[1] %}
+            {% if Teams[0] == cursor[0][0][5]: %}
+            <option value="{{Teams[0]}}" selected>{{Teams[1]}}</option>
+            {% else: %}
+            <option value="{{Teams[0]}}">{{Teams[1]}}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+      </div>
+</div>
+
+<div class="field is-grouped">
+    <div class="control">
+      <button class="button is-link" name="Update" value="{{row[0]}}">Submit</button>
+    </div>
+  </div>
+{% endfor %}
+</form>
+<script>
+  function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+  }
+  </script>
+{% endblock %}

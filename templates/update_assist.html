@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+
+{% block title %}Update Assist {% endblock %}
+{% block content %}
+<a class="button is-dark" href="{{ url_for('team_page') }}">See All Teams</a>
+<a class="button is-dark" href="{{ url_for('player_page') }}">See All Players</a>
+<a class="button is-dark" href="{{ url_for('manager_page') }}">See All Managers</a>
+<a class="button is-dark" href="{{ url_for('goal_page') }}">See All Goals</a>
+<a class="button is-dark" href="{{ url_for('stadium_page') }}">See All Stadiums</a>
+<a class="button is-dark" href="{{ url_for('assist_page') }}">See All Assists</a>
+<a class="button is-dark" href="{{ url_for('statistic_page') }}">See All Statistics</a>
+<a class="button is-dark" href="{{ url_for('standing_page') }}">See Standing</a>
+<a class="button is-dark" href="{{ url_for('referee_page') }}">See Referee</a>
+<a class="button is-dark" href="{{ url_for('fixture_page') }}">See Fixture</a>
+<a class="button is-dark" href="{{ url_for('detail_page') }}">See Details</a>
+<br><br>
+<h1 class="title">Update ASSIST</h1>
+
+
+<form method='POST'>
+<div class="field">
+  <label for="PlayerName" class="label">Player Name</label>
+  <div class="select">
+      <select  value="{{PlayerID}}" name="PlayerID">
+          {% for player in cursor[1] %}
+          {% if player[0] == cursor[0][0][1]: %}
+          <option value="{{player[0]}}" selected>{{player[1]}}</option>
+          {% else: %}
+        <option value="{{player[0]}}">{{player[1]}}</option>
+        {% endif %}
+          {% endfor %}
+      </select>
+    </div>
+</div>
+
+<div class="field">
+    <label for="MatchID" class="label">Select MatchID</label>
+    <div class="select">
+        <select  value="{{MatchID}}" name="MatchID">
+            {% for Fixtures in cursor[2] %}
+            {% if Fixtures[0] == cursor[0][0][2]: %}
+            <option value="{{Fixtures[0]}}" selected>{{Fixtures[0]}}</option>
+            {% else: %}
+            <option value="{{Fixtures[0]}}">{{Fixtures[0]}}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+      </div>
+  </div>
+
+<div class="field">
+  <label for="TeamID" class="label">Minute</label>
+  <div class="control">
+      {% for row in cursor[0] %}
+    <input required="required" class="input" type="number"  value="{{row[3]}}" name="Minute" maxlength="3">
+  </div>
+</div>
+
+<div class="field">
+    <label for="TeamID" class="label">Last Touch</label>
+  <label class="radiobox">
+      {% if row[4] == 'Foot' %}
+      <input type="radio" name="LastTouch" value="Foot" checked>Foot<br>
+      {% else %}
+      <input type="radio" name="LastTouch" value="Foot">Foot<br>
+      {% endif %}
+      {% if row[4] == 'Head' %}
+      <input type="radio" name="LastTouch" value="Head" checked>Head<br>
+      {% else %}
+      <input type="radio" name="LastTouch" value="Head">Head<br>
+      {% endif %}
+      {% if row[4] == 'Chest' %}
+      <input type="radio" name="LastTouch" value="Chest" checked>Chest<br>
+      {% else %}
+      <input type="radio" name="LastTouch" value="Chest">Chest<br>
+      {% endif %}
+      {% if row[4] == 'Other' %}
+      <input type="radio" name="LastTouch" value="Other" checked>Other<br>
+      {% else %}
+      <input type="radio" name="LastTouch" value="Other">Other<br>
+      {% endif %}
+  </label>
+  </div>
+  <div class="field">
+      <label for="TeamID" class="label">Format</label>
+    <label class="radiobox">
+        {% if row[5] == 'Pass' %}
+        <input type="radio" name="Format" value="Pass" checked>Pass<br>
+        {% else %}
+        <input type="radio" name="Format" value="Pass">Pass<br>
+        {% endif %}
+        {% if row[5] == 'Interpass' %}
+        <input type="radio" name="Format" value="Interpass" checked>Interpass<br>
+        {% else %}
+        <input type="radio" name="Format" value="Interpass">Interpass<br>
+        {% endif %}
+        {% if row[5] == 'Centre' %}
+        <input type="radio" name="Format" value="Centre" checked>Centre<br>
+        {% else %}
+        <input type="radio" name="Format" value="Centre">Centre<br>
+        {% endif %}
+        {% if row[5] == 'Other' %}
+        <input type="radio" name="Format" value="Other" checked>Other<br>
+        {% else %}
+        <input type="radio" name="Format" value="Other">Other<br>
+        {% endif %}
+    </label>
+    </div>
+    <div class="field">
+        <label for="TeamID" class="label">Golden Assist</label>
+      <label class="radiobox">
+          {% if row[6] == 'No' %}
+          <input type="radio" name="GoldenAssist" value="No" checked>No<br>
+          {% else %}
+          <input type="radio" name="GoldenAssist" value="No">No<br>
+          {% endif %}
+          {% if row[6] == 'Yes' %}
+          <input type="radio" name="GoldenAssist" value="Yes" checked>Yes<br>
+          {% else %}
+          <input type="radio" name="GoldenAssist" value="Yes">Yes<br>
+          {% endif %}
+      </label>
+      </div>
+      <div class="field">
+          <label for="TeamID" class="label">Stadium (Home/Away)</label>
+        <label class="radiobox">
+            <label class="radiobox">
+                {% if row[7] == 'Home' %}
+                <input type="radio" name="StadiumHA" value="Home" checked>Home<br>
+                {% else %}
+                <input type="radio" name="StadiumHA" value="Home">Home<br>
+                {% endif %}
+                {% if row[7] == 'Away' %}
+                <input type="radio" name="StadiumHA" value="Away" checked>Away<br>
+                {% else %}
+                <input type="radio" name="StadiumHA" value="Away">Away<br>
+                {% endif %}
+            </label>
+        </label>
+        </div>
+
+<div class="field is-grouped">
+  <div class="control">
+        <button class="button is-link" name="Update" value="{{row[0]}}">Submit</button>
+  </div>
+</div>
+{% endfor %}
+</form>
+{% endblock %}

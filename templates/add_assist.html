@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block title %}Add Assist {% endblock %}
+{% block content %}
+<a class="button is-dark" href="{{ url_for('team_page') }}">See All Teams</a>
+<a class="button is-dark" href="{{ url_for('player_page') }}">See All Players</a>
+<a class="button is-dark" href="{{ url_for('manager_page') }}">See All Managers</a>
+<a class="button is-dark" href="{{ url_for('goal_page') }}">See All Goals</a>
+<a class="button is-dark" href="{{ url_for('stadium_page') }}">See All Stadiums</a>
+<a class="button is-dark" href="{{ url_for('assist_page') }}">See All Assists</a>
+<a class="button is-dark" href="{{ url_for('statistic_page') }}">See All Statistics</a>
+<a class="button is-dark" href="{{ url_for('standing_page') }}">See Standing</a>
+<a class="button is-dark" href="{{ url_for('referee_page') }}">See Referee</a>
+<a class="button is-dark" href="{{ url_for('fixture_page') }}">See Fixture</a>
+<a class="button is-dark" href="{{ url_for('detail_page') }}">See Details</a>
+<br><br>
+
+
+
+<br>
+<h1 class="title">ADD ASSIST</h1>
+<form method='POST'>
+<div class="field">
+  <label for="PlayerName" class="label">Player Name</label>
+  <div class="select">
+  <select  value="{{PlayerID}}" name="PlayerID">
+      {% for row in cursor[0] %}
+    <option value="{{row[0]}}">{{row[1]}}</option>
+      {% endfor %}
+  </select>
+</div>
+</div>
+
+<div class="field">
+    <label for="MatchID" class="label">Select MatchID</label>
+    <div class="select">
+    <select  value="{{MatchID}}" name="MatchID">
+        {% for row in cursor[1] %}
+      <option value="{{row[0]}}">{{row[0]}}</option>
+        {% endfor %}
+    </select>
+  </div>
+  </div>
+
+<div class="field">
+  <label for="TeamID" class="label">Minute</label>
+  <div class="control">
+    <input required="required" class="input" type="number" placeholder="e.g. 87"  value="{{Minute}}" name="Minute" maxlength="3">
+  </div>
+</div>
+<div class="field">
+    <label for="TeamID" class="label">Last Touch</label>
+  <label class="radiobox">
+    <input type="radio" name="LastTouch" value="Foot" checked>Foot<br>
+    <input type="radio" name="LastTouch" value="Head">Head<br>
+    <input type="radio" name="LastTouch" value="Chest">Chest<br>
+    <input type="radio" name="LastTouch" value="Other">Other<br>
+  </label>
+  </div>
+  <div class="field">
+      <label for="TeamID" class="label">Format</label>
+    <label class="radiobox">
+      <input type="radio" name="Format" value="Pass" checked>Pass<br>
+      <input type="radio" name="Format" value="Interpass">Interpass<br>
+      <input type="radio" name="Format" value="Centre">Centre<br>
+      <input type="radio" name="Format" value="Other">Other<br>
+    </label>
+    </div>
+    <div class="field">
+        <label for="TeamID" class="label">Golden Assist</label>
+      <label class="radiobox">
+        <input type="radio" name="GoldenAssist" value="No" checked>No<br>
+        <input type="radio" name="GoldenAssist" value="Yes">Yes<br>
+      </label>
+      </div>
+      <div class="field">
+          <label for="TeamID" class="label">Stadium (Home/Away)</label>
+        <label class="radiobox">
+          <input type="radio" name="StadiumHA" value="Home" checked>Home<br>
+          <input type="radio" name="StadiumHA" value="Away">Away<br>
+        </label>
+        </div>
+<div class="field is-grouped">
+  <div class="control">
+    <button class="button is-link">Submit</button>
+  </div>
+</div>
+</form>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block title %}Teams{% endblock %}
+{% block content %}
+<a class="button is-dark" href="{{ url_for('top_goal_page') }}">See Top Goals</a>
+<a class="button is-dark" href="{{ url_for('top_assist_page') }}">See Top Assists</a>
+<a class="button is-dark" href="{{ url_for('team_user_page') }}">See All Teams</a>
+<a class="button is-dark" href="{{ url_for('player_user_page') }}">See All Players</a>
+<a class="button is-dark" href="{{ url_for('manager_user_page') }}">See All Managers</a>
+<a class="button is-dark" href="{{ url_for('referee_user_page') }}">See All Referee</a> 
+<a class="button is-dark" href="{{ url_for('stadium_user_page') }}">See All Stadiums</a> 
+<a class="button is-dark" href="{{ url_for('standing_user_page') }}">See Standing Table</a>
+<a class="button is-dark" href="{{ url_for('fixture_user_page') }}">See All Fixtures</a>
+<h1 class="title">TOP Assist</h1>
+<form action="" method="post" name="team_list">
+<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" style="width:100%">
+ <tr>
+    <th>Player</th>
+    <th>Total Assist</th>
+
+  </tr>
+{% for row in cursor[0] %}
+  <tr>
+    <td>
+      <div class="popup" onclick="myFunction{{row[0]}}()">{{row[1]}}
+          
+          <span class="popuptext" id="myPopup{{row[0]}}">
+              {% for infoList in cursor[1] %}
+              {% for info in infoList %}
+              {% if row[0] == info[0] %}
+                {% if info[1] == 'Yes' %}
+                Golden : {{info[2]}} </br>
+                {% else %}
+               {{info[1]}} : {{info[2]}} </br>
+               {% endif %}
+              {% endif %}
+              {% endfor %}
+              {% endfor %}
+              </span>
+    </div>
+    </td>
+    <td>{{row[2]}}</td>
+  </tr>
+  <script>
+      // When the user clicks on div, open the popup
+      function myFunction{{row[0]}}() {
+        var popup = document.getElementById("myPopup{{row[0]}}");
+        popup.classList.toggle("show");
+      }
+      </script>
+{% endfor %}
+
+</table>
+</form>
+
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends "layout.html" %}
+{% block title %}Teams{% endblock %}
+{% block content %}
+<a class="button is-dark" href="{{ url_for('top_goal_page') }}">See Top Goals</a>
+<a class="button is-dark" href="{{ url_for('top_assist_page') }}">See Top Assists</a>
+<a class="button is-dark" href="{{ url_for('team_user_page') }}">See All Teams</a>
+<a class="button is-dark" href="{{ url_for('player_user_page') }}">See All Players</a>
+<a class="button is-dark" href="{{ url_for('manager_user_page') }}">See All Managers</a>
+<a class="button is-dark" href="{{ url_for('referee_user_page') }}">See All Referee</a> 
+<a class="button is-dark" href="{{ url_for('stadium_user_page') }}">See All Stadiums</a> 
+<a class="button is-dark" href="{{ url_for('standing_user_page') }}">See Standing Table</a>
+<a class="button is-dark" href="{{ url_for('fixture_user_page') }}">See All Fixtures</a>
+<h1 class="title">Team</h1>
+<form action="" method="post" name="team_list">
+  <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" style="width:100%">
+  <tr>
+      <th>TeamName</th>
+      <th>NickName</th>
+      <th>ShortName</th>
+      <th>FoundationDate</th>
+      <th>Location</th>
+      <th>Manager</th>
+    </tr>
+  {% for row in cursor[0] %}
+  <tr> 
+      <td><a href="{{ url_for('team_user_page')}}/{{row[0]}}">{{row[1]}}</td></a>
+      <td>{{row[2]}}</td>
+      <td>{{row[3]}}</td>
+      <td>{{row[4]}}</td>
+      <td>{{row[6]}}</td>
+      <td><a href="{{ url_for('manager_user_page')}}/{{row[7]}}">{{row[5]}}</td></a>
+    </tr></a>
+{% endfor %}
+</table>
+<h2 class="title">Players</h2>
+<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" style="width:100%">
+    <tr>
+        <th>Player Name</th>
+        <th>Player Age</th>
+        <th>Player Position</th>
+        <th>Player Nationalty</th>
+        <th>Player Height</th>
+        <th>PlaceOfBirth</th>
+        <th>Team</th>
+      </tr>
+    {% for row in cursor[1] %}
+    <tr>
+        <td><a href="{{ url_for('player_user_page')}}/{{row[0]}}">{{row[1]}}</td></a>
+        <td>{{row[2]}}</td>
+        <td>{{row[3]}}</td>
+        <td>{{row[4]}}</td>
+        <td>{{row[5]}}</td>
+        <td>{{row[6]}}</td>
+        <td><a href="{{ url_for('team_user_page')}}/{{row[8]}}">{{row[7]}}</td></a>
+  
+      </td>
+      </tr>
+      {% endfor %}  
+    </table>
+    <h2 class="title">Stadium</h2>
+    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" style="width:100%">
+      <tr>
+          <th>Team</th>
+          <th>Stadium Name</th>
+          <th>Capacity</th>
+          <th>Built</th>
+          <th>Pitch Size</th>
+          <th>Surface</th>
+
+        </tr>
+        {% for row in cursor[2] %}
+        <tr>
+            <td><a href="{{ url_for('team_user_page')}}/{{row[7]}}">{{row[1]}}</td></a>
+            <td>{{row[2]}}</td>
+            <td>{{row[3]}}</td>
+            <td>{{row[4]}}</td>
+            <td>{{row[5]}}</td>
+            <td>{{row[6]}}</td>
+      </tr>
+      {% endfor %}
+</table>
+
+</div>
+
+<h3 class="title">Matches</h3>
+<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" style="width:100%">
+  <tr>
+      
+      <th>Home Team</th>
+      <th>Away Team</th>
+      <th>Home Score</th>
+      <th>Away Score</th>
+      <th>Week</th>
+      <th>MatchDate</th>
+      <th>Time </th>
+      <th>Referee </th>
+      <th>Status </th>
+
+      
+    </tr>
+    {% for row in cursor[3] %}
+    
+        <td><a href="{{ url_for('team_user_page')}}/{{row[10]}}">{{row[1]}}</td></a>
+        <td><a href="{{ url_for('team_user_page')}}/{{row[11]}}">{{row[2]}}</td></a>
+        <td>{{row[6]}}</td>
+        <td>{{row[7]}}</td>
+        <td>{{row[3]}}</td>
+        <td>{{row[4]}}</td>
+        <td>{{row[5]}}</td>
+        <td><a href="{{ url_for('referees_user_page')}}/{{row[12]}}">{{row[9]}}</td></a>
+        {%if row[8]=='NOTSTARTED' %}
+        <td style="color:green; font-weight: bold;">{{row[8]}}</td>
+        {%endif%}
+        {%if row[8] =='LIVE' %}
+        <td style=""><div class="control"><a href="{{ url_for('detail_user_page')}}/{{row[0]}}" class="button is-danger">LIVE</button></div></a></td>
+        {%endif%}
+        {%if row[8] =='FINISHED' %}
+        <td style="color:black; font-weight: bold;"><a href="{{ url_for('detail_user_page')}}/{{row[0]}}" class="button">{{row[8]}}</td></a>
+        {%endif%}
+        
+        
+  </tr>
+  {% endfor %}
+</table>
+<h3 class="title">Manager</h3>
+<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" style="width:100%">
+  <tr>
+     <th>Manager Name</th>
+     <th>Manager Age</th>
+     <th>Manager Nationalty</th>
+     <th>Manager Height</th>
+     <th>Manager PlaceOfBirth</th>
+     <th>Team</th>
+   </tr>
+ {% for row in cursor[4] %}
+ <tr>  
+     <td><a href="{{ url_for('managers_user_page')}}/{{row[0]}}">{{row[1]}}</td></a>
+     <td>{{row[2]}}</td>
+     <td>{{row[3]}}</td>
+     <td>{{row[4]}}</td>
+     <td>{{row[5]}}</td>
+     <td><a href="{{ url_for('team_user_page')}}/{{row[7]}}">{{row[6]}}</td></a>
+   </tr>
+   {% endfor %}
+ </table>
+      </form>
+{% endblock %}

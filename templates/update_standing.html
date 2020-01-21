@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block title %}update standings {% endblock %}
+{% block content %}
+<a class="button is-dark" href="{{ url_for('team_page') }}">See All Teams</a>
+<a class="button is-dark" href="{{ url_for('player_page') }}">See All Players</a>
+<a class="button is-dark" href="{{ url_for('manager_page') }}">See All Managers</a>
+<a class="button is-dark" href="{{ url_for('goal_page') }}">See All Goals</a>
+<a class="button is-dark" href="{{ url_for('stadium_page') }}">See All Stadiums</a>
+<a class="button is-dark" href="{{ url_for('assist_page') }}">See All Assists</a>
+<a class="button is-dark" href="{{ url_for('statistic_page') }}">See All Statistics</a>
+<a class="button is-dark" href="{{ url_for('standing_page') }}">See Standing</a>
+<a class="button is-dark" href="{{ url_for('referee_page') }}">See Referee</a>
+<a class="button is-dark" href="{{ url_for('fixture_page') }}">See Fixture</a>
+<a class="button is-dark" href="{{ url_for('detail_page') }}">See Details</a>
+<br><br>
+<h1 class="title">UPDATE STANDINGS</h1>
+
+
+<form method='POST'>
+<div class="field">
+  <label for="PlayerName" class="label">Team</label>
+    
+    <div class="select">
+  <select  id="team" name="TeamID" >
+          {% for row in cursor[1] %}
+          <option value="{{row[0]}}">{{row[1]}}</option>
+          {% endfor %}
+      </select>
+  </div>
+</div>
+{% for row in cursor[0] %}
+<div class="field">
+  <label for="PlayerAge" class="label">Played</label>
+  <div class="control">
+    <input required="required" class="input" type="number" placeholder="e.g. 3"  value="{{row[2]}}" name="Played" min="0">
+  </div>
+</div>
+
+<div class="field">
+  <label for="TeamID" class="label">Won</label>
+  <div class="control">
+    <input required="required" class="input" type="number" placeholder="e.g. 4"  value="{{row[3]}}" name="Won" min="0">
+  </div>
+</div>
+
+<div class="field">
+    <label for="TeamID" class="label">Drawn</label>
+    <div class="control">
+      <input required="required" class="input" type="number" placeholder="e.g. 2"  value="{{row[4]}}" name="Drawn" min="0">
+    </div>
+  </div>
+
+<div class="field">
+  <label for="TeamID" class="label">Lost</label>
+  <div class="control">
+    <input required="required" class="input" type="number" placeholder="e.g. 4"  value="{{row[5]}}" name="Lost" min="0">
+  </div>
+</div>
+
+<div class="field">
+    <label for="TeamID" class="label">Goals_for</label>
+    <div class="control">
+      <input required="required" class="input" type="number" placeholder="e.g. 4"  value="{{row[6]}}" name="Goals_for" min="0">
+    </div>
+  </div>
+
+<div class="field">
+    <label for="TeamID" class="label">Goals_against</label>
+    <div class="control">
+      <input required="required" class="input" type="number" placeholder="e.g. 4"  value="{{row[7]}}" name="Goals_against" min="0">
+    </div>
+  </div>
+
+
+
+<div class="field is-grouped">
+  <div class="control">
+    <button class="button is-link" name="Update" value="{{row[0]}}">Submit</button>
+  </div>
+</div>
+</form>
+<script>
+ listBox=document.getElementById('team');
+ 
+ for (var x = 0; x < 20; x++) { 
+  if (listBox.options[x].value == {{row[1]}}) { 
+    listBox.options[x].selected = true; 
+  } 
+} 
+
+
+
+</script>
+{% endfor %}
+{% endblock %}

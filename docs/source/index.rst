@@ -1,17 +1,21 @@
-Welcome to itucsdbNN's documentation!
+Welcome to itucsdb1930's documentation!
 =====================================
 
-:Team: Team Name
+:Team: itucsdb1930
 
 :Members:
 
-   * Member 1
-   * Member 2
-   * Member 3
-   * Member 4
-   * Member 5
+   * Muhammed Enes Tırnakçı
+   * Beraat Buz
+   * Ahmet Yılmaz
 
-**project description goes here (a few paragraphs)**
+**This system follows live football matches and keep some statistic about
+footballers, teams, matches over the matches played before in England
+Premier League.**
+
+App: http://itucsdb1930.herokuapp.com/ 
+
+Github Page: https://github.com/itucsdb1930/itucsdb1930 
 
 Contents:
 

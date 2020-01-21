@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block title %}add fixture {% endblock %}
+{% block content %}
+<a class="button is-dark" href="{{ url_for('team_page') }}">See All Teams</a>
+<a class="button is-dark" href="{{ url_for('player_page') }}">See All Players</a>
+<a class="button is-dark" href="{{ url_for('manager_page') }}">See All Managers</a>
+<a class="button is-dark" href="{{ url_for('goal_page') }}">See All Goals</a>
+<a class="button is-dark" href="{{ url_for('stadium_page') }}">See All Stadiums</a>
+<a class="button is-dark" href="{{ url_for('assist_page') }}">See All Assists</a>
+<a class="button is-dark" href="{{ url_for('statistic_page') }}">See All Statistics</a>
+<a class="button is-dark" href="{{ url_for('standing_page') }}">See Standing</a>
+<a class="button is-dark" href="{{ url_for('referee_page') }}">See Referee</a>
+<a class="button is-dark" href="{{ url_for('fixture_page') }}">See Fixture</a>
+<a class="button is-dark" href="{{ url_for('detail_page') }}">See Details</a>
+<br><br>
+<h1 class="title">ADD Fixture</h1>
+
+
+<form method='POST'>
+<div class="field">
+  <label for="PlayerName" class="label">HomeTeam</label>
+  <div class="select">
+    <select  value="{{HomeTeam}}" name="HomeTeam">
+      {% for row in cursor[0] %}
+      <option value="{{row[0]}}">{{row[1]}}</option>
+      {% endfor %}
+      </select>
+
+  </div>
+</div>
+
+<div class="field">
+  <label for="PlayerAge" class="label">AwayTeam</label>
+  <div class="select">
+        <select  value="{{AwayTeam}}" name="AwayTeam">
+          {% for row in cursor[0] %}
+          <option value="{{row[0]}}">{{row[1]}}</option>
+          {% endfor %}
+      </select>
+  </div>
+</div>
+<div class="field">
+  <label for="PlayerAge" class="label">Referee</label>
+  <div class="select">
+        <select  value="{{Refereeid}}" name="Refereeid">
+          {% for row in cursor[1] %}
+          <option value="{{row[0]}}">{{row[1]}}</option>
+          {% endfor %}
+      </select>
+  </div>
+</div>
+<div class="field">
+  <label for="TeamID" class="label">HomeScore</label>
+  <div class="control">
+    <input  class="input" type="number" placeholder="e.g. 3"  value="{{HomeScore}}" name="HomeScore" min="0">
+  </div>
+</div>
+
+<div class="field">
+  <label for="TeamID" class="label">AwayScore</label>
+  <div class="control">
+    <input  class="input" type="number" placeholder="e.g. 0"  value="{{AwayScore}}" name="AwayScore" min="0">
+  </div>
+</div>
+
+<div class="field">
+  <label for="TeamID" class="label">Week</label>
+  <div class="control">
+    <input required="required" class="input" type="number" placeholder="e.g. 1"  value="{{Week}}" name="Week" min="1">
+  </div>
+</div>
+
+<div class="field">
+    <label for="TeamID" class="label">MatchDate</label>
+    <div class="control">
+      <input required="required" class="input" type="date" placeholder="e.g. 01.01.2020"  value="{{MatchDate}}" name="MatchDate">
+    </div>
+</div>
+
+<div class="field">
+  <label for="TeamID" class="label">Time</label>
+  <div class="control">
+    <input required="required" class="input" type="time" placeholder="e.g. 20:00"  value="{{Time}}" name="Time">
+  </div>
+</div>
+<div class="field">
+<label class="radiobox">
+  <input type="radio" name="Status" value="NOTSTARTED" checked>
+  Not Started <br>
+  <input type="radio" name="Status" value="LIVE">
+  LIVE<br>
+  <input type="radio" name="Status" value="FINISHED">
+  FINISHED
+</label>
+</div>
+<div class="field is-grouped">
+  <div class="control">
+    <button class="button is-link">Submit</button>
+  </div>
+</div>
+</form>
+{% endblock %}

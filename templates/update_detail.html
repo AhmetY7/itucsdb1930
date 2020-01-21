@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}Update Detail {% endblock %}
+{% block content %}
+<a class="button is-dark" href="{{ url_for('team_page') }}">See All Teams</a>
+<a class="button is-dark" href="{{ url_for('player_page') }}">See All Players</a>
+<a class="button is-dark" href="{{ url_for('manager_page') }}">See All Managers</a>
+<a class="button is-dark" href="{{ url_for('goal_page') }}">See All Goals</a>
+<a class="button is-dark" href="{{ url_for('stadium_page') }}">See All Stadiums</a>
+<a class="button is-dark" href="{{ url_for('assist_page') }}">See All Assists</a>
+<a class="button is-dark" href="{{ url_for('statistic_page') }}">See All Statistics</a>
+<a class="button is-dark" href="{{ url_for('standing_page') }}">See Standing</a>
+<a class="button is-dark" href="{{ url_for('referee_page') }}">See Referee</a>
+<a class="button is-dark" href="{{ url_for('fixture_page') }}">See Fixture</a>
+<a class="button is-dark" href="{{ url_for('detail_page') }}">See Details</a>
+<br><br>
+<h1 class="title">Update Detail</h1>
+
+
+<form method='POST'>
+<div class="field">
+    <label for="MatchID" class="label">Select MatchID</label>
+    <div class="select">
+        <select  value="{{MatchID}}" name="MatchID">
+            {% for Fixtures in cursor[1] %}
+            {% if Fixtures[0] == cursor[0][0][1]: %}
+            <option value="{{Fixtures[0]}}" selected>{{Fixtures[0]}}</option>
+            {% else: %}
+            <option value="{{Fixtures[0]}}">{{Fixtures[0]}}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+      </div>
+</div>
+
+<div class="field">
+        <label for="Detail" class="label">Detail</label>
+        <div class="control">
+            {% for row in cursor[0] %}
+          <textarea rows="6" cols="50" required="required" placeholder="e.g. 34"  value="{{row[2]}}" name="Detail" maxlength="300">
+            </textarea>
+        </div>
+      </div>
+
+<div class="field">
+  <label for="Minute" class="label">Minute</label>
+  <div class="control">
+    <input required="required" class="input" type="number" placeholder="e.g. 87"  value="{{row[3]}}" name="Minute" maxlength="2">
+  </div>
+</div>
+
+<div class="field is-grouped">
+    <div class="control">
+      <button class="button is-link" name="Update" value="{{row[0]}}">Submit</button>
+    </div>
+  </div>
+{% endfor %}
+</form>
+{% endblock %}
